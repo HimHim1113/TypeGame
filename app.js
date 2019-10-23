@@ -23,10 +23,12 @@ init();
 
 var timer = null;
 var startTime = 0;
+var time_memorizer = 0.0;
 function timerStart() {
     startTime = new Date().getTime();
     timer = setInterval(function() {
         var time = (new Date().getTime() - startTime) / 1000;
+	 time_memorizer = time;
         document.querySelector('.timer').textContent = time.toFixed(3);
     }, 10);
 }
@@ -39,7 +41,7 @@ var time_all = 0.0;
 document.addEventListener('keydown', function(event) {
     var keyCode = event.keyCode;
     if (keyCode === 13) { // enter key
-        if(!endFlag) time_all += (new Date().getTime() - startTime) / 1000;
+        if(!endFlag) time_all += time_memorizer;
         counter++;
         if(counter < QUESTION.length) init();
         else end();
@@ -79,14 +81,6 @@ document.addEventListener('keydown', function(event) {
 function end(){
     endFlag = true;
     document.querySelector('.timer').textContent = time_all.toFixed(3);
+    document.querySelector('.container').textContent = '';
+    document.querySelector('.japanese').textContent = 'END';
 }
-
-/*
-or('.container').addEventListener('click', function(event) {
-    var text = prompt('問題文を入力してください');
-    if (text) {
-        localStorage.QUESTION = QUESTION = text;
-        init();
-    }
-});
-*/
