@@ -15,7 +15,7 @@ function init() {
         return type;
     });
 
-    timerEnd();
+    //timerEnd();
     document.querySelector('.timer').textContent = '0.000';
     document.querySelector('.japanese').textContent = JAPANESE[counter];
 }
@@ -29,7 +29,7 @@ function timerStart() {
     timer = setInterval(function() {
         var time = (new Date().getTime() - startTime) / 1000;
 	 time_memorizer = time;
-        document.querySelector('.timer').textContent = time.toFixed(3);
+        document.querySelector('.timer').textContent = time.toFixed(2);
     }, 10);
 }
 function timerEnd() {
@@ -40,7 +40,7 @@ function timerEnd() {
 var time_all = 0.0;
 document.addEventListener('keydown', function(event) {
     var keyCode = event.keyCode;
-    if (keyCode === 13) { // enter key
+    if (keyCode === 13 && types.length === 0) { // enter key
         if(!endFlag) time_all += time_memorizer;
         counter++;
         if(counter < QUESTION.length) init();
@@ -61,17 +61,17 @@ document.addEventListener('keydown', function(event) {
     }
 
     if (key) {
-        if (timer === null && types.length) {
+        if (timer === null && types.length && counter === 0) {
             timerStart();
-        }
+         }
 
         var next = types[0];
         if (next.textContent === key) {
             next.classList.add('ok');
             types.shift();
-            if (types.length === 0) {
+            /*if (types.length === 0) {
                 timerEnd();
-            }
+              }*/
         } else {
             next.classList.add('ng');
         }
@@ -79,8 +79,10 @@ document.addEventListener('keydown', function(event) {
 });
 
 function end(){
+    timerEnd();
     endFlag = true;
-    document.querySelector('.timer').textContent = time_all.toFixed(3);
+    var endTime = (new Date().getTime() - startTime) / 1000;
+    document.querySelector('.timer').textContent = endTime.toFixed(2);
     document.querySelector('.container').textContent = '';
     document.querySelector('.japanese').textContent = 'END';
 }
