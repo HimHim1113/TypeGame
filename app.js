@@ -1,5 +1,5 @@
-var QUESTION = ['kikai', 'denki', 'seigyo', 'kagaku'];
-var JAPANESE = ['機械', '電気', '制御', '化学']
+var QUESTION = ['kikai', 'denki', 'seigyo', 'kagaku', 'ryunen', 'ryosei', 'kosen', 'handa', 'natuyasumi'];
+var JAPANESE = ['機械', '電気', '制御', '化学', '留年', '寮生', '高専', 'はんだ', '夏休み']
 var counter = 0;
 var endFlag = false;
 
